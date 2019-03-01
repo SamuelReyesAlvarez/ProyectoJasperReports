@@ -69,7 +69,6 @@ public class ControladorRegistroJuego implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// Carga los estilos de juego disponibles más un campo vacío
 		listaEstilos = FXCollections.observableArrayList();
-		listaEstilos.add("<sin definir>");
 		for (EstiloJuego estilo : EstiloJuego.values()) {
 			listaEstilos.add(estilo.toString().toUpperCase());
 		}
@@ -109,13 +108,7 @@ public class ControladorRegistroJuego implements Initializable {
 			// Recoge el nombre introducido
 			String nombre = textoNombre.getText();
 			// Comprueba el estilo de juego seleccionado
-			// Si selecciona la primera opción, el juego no tendrá estilo definido
-			EstiloJuego estilo;
-			if (comboEstilo.getValue().contains("<")) {
-				estilo = null;
-			} else {
-				estilo = EstiloJuego.values()[comboEstilo.getSelectionModel().getSelectedIndex() - 1];
-			}
+			EstiloJuego estilo = EstiloJuego.values()[comboEstilo.getSelectionModel().getSelectedIndex()];
 			// Obtiene la fecha de publicación
 			LocalDate publicacion = datePublicacion.getValue();
 			// Recoge la descripción del juego

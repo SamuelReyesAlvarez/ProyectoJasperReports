@@ -7,49 +7,42 @@ import org.hibernate.context.internal.ThreadLocalSessionContext;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-/**
- * 
- * @author Samuel Reyes Alvarez
- *
- *         Clase que permite gestionar la conexión y desconexión de la
- *         herramienta Hibernate con MySQL
- */
 public class HibernateUtil {
 
-	private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
-	public static synchronized void buildSessionFactory() {
-		Configuration configuration = new Configuration();
-		configuration.configure();
-		configuration.setProperty("hibernate.current_session_context_class", "thread");
+    public static synchronized void buildSessionFactory() {
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.setProperty("hibernate.current_session_context_class", "thread");
 
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
-				.buildServiceRegistry();
-		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-	}
+        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    }
 
-	public static void openSessionAndBindToThread() {
-		Session session = sessionFactory.openSession();
-		ThreadLocalSessionContext.bind(session);
-	}
+    public static void openSessionAndBindToThread() {
+        Session session = sessionFactory.openSession();
+        ThreadLocalSessionContext.bind(session);
+    }
 
-	public static SessionFactory getSessionFactory() {
-		if (sessionFactory == null) {
-			buildSessionFactory();
-		}
-		return sessionFactory;
-	}
 
-	public static void closeSessionAndUnbindFromThread() {
-		Session session = ThreadLocalSessionContext.unbind(sessionFactory);
-		if (session != null) {
-			session.close();
-		}
-	}
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory==null)  {
+            buildSessionFactory();
+        }
+        return sessionFactory;
+    }
 
-	public static void closeSessionFactory() {
-		if ((sessionFactory != null) && (sessionFactory.isClosed() == false)) {
-			sessionFactory.close();
-		}
-	}
+    public static void closeSessionAndUnbindFromThread() {
+        Session session = ThreadLocalSessionContext.unbind(sessionFactory);
+        if (session!=null) {
+            session.close();
+        }
+    }
+
+    public static void closeSessionFactory() {
+        if ((sessionFactory!=null) && (sessionFactory.isClosed()==false)) {
+            sessionFactory.close();
+        }
+    }
 }

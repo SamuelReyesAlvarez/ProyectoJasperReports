@@ -139,9 +139,7 @@ public class ControladorValorarJuego {
 	public void mostrarDatosJuego() {
 		textoNombre.setText(juego.getNombre());
 		textoPrecio.setText(String.valueOf(juego.getPrecio()));
-		if (juego.getEstilo() != null) {
-			textoEstilo.setText(juego.getEstilo().toString());
-		}
+		textoEstilo.setText(juego.getEstilo().toString());
 		textoPublicacion.setText(juego.getPublicacion().toString());
 		textoDescripcion.setText(juego.getDescripcion());
 	}

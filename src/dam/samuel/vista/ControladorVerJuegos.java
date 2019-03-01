@@ -160,6 +160,9 @@ public class ControladorVerJuegos implements Initializable {
 		case "TODOS":
 			listaJuegos = FXCollections.observableArrayList(juegoDAO.consultarTodas());
 			break;
+		case "SIN_DEFINIR":
+			listaJuegos = FXCollections.observableArrayList(juegoDAO.consultarPorEstilo(EstiloJuego.sin_definir));
+			break;
 		case "ROL":
 			listaJuegos = FXCollections.observableArrayList(juegoDAO.consultarPorEstilo(EstiloJuego.rol));
 			break;

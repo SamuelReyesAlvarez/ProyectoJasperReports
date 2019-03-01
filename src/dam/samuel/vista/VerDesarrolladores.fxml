@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -31,6 +32,24 @@
                </padding>
             </Label>
             <Separator layoutX="2.0" prefWidth="596.0" />
+            <HBox alignment="CENTER" layoutX="346.0" layoutY="10.0">
+               <children>
+                  <Label layoutX="519.0" layoutY="17.0" text="Generar informe completo de juegos" textFill="#dddddd">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button layoutX="547.0" layoutY="10.0" mnemonicParsing="false" onAction="#generarReporte">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../img/file.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </Pane>
    </bottom>

@@ -43,7 +43,7 @@ public class Juego implements Serializable {
 	 * Establece los diferentes estilos de juego disponibles para la aplicación
 	 */
 	public enum EstiloJuego {
-		rol, accion, aventura, estrategia
+		sin_definir, rol, accion, aventura, estrategia
 	}
 
 	/**

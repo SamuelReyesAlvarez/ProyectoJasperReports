@@ -5,17 +5,22 @@ import java.util.List;
 
 import dam.samuel.dao.DesarrolloDAO;
 import dam.samuel.dao.EmpresaDAO;
+import dam.samuel.dao.JuegoDAO;
 import dam.samuel.modelo.Empresa;
 import dam.samuel.modelo.Juego;
+import dam.samuel.modelo.Reporte;
 import dam.samuel.modelo.Juego.EstiloJuego;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * 
@@ -29,6 +34,7 @@ public class ControladorVerDesarrolladores {
 
 	private EmpresaDAO empresaDAO = new EmpresaDAO();
 	private DesarrolloDAO desarrollaDAO = new DesarrolloDAO();
+	private JuegoDAO juegoDAO = new JuegoDAO();
 	private ObservableList<Empresa> listaEmpresas;
 	private ObservableList<Juego> listaJuegos;
 	private Stage dialogVerDesarrolladores;
@@ -127,5 +133,30 @@ public class ControladorVerDesarrolladores {
 		// No se permitirá al usuario seleccionar más de un item al mismo tiempo en la
 		// segunda tabla
 		tablaJuego.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+	}
+
+	@FXML
+	public void generarReporte() {
+		Reporte reporte = new Reporte();
+
+		try {
+			List<Juego> listado = juegoDAO.consultarTodas();
+			if (listado.size() < 1) {
+				Alert aviso = new Alert(AlertType.INFORMATION);
+				aviso.setTitle("Aviso");
+				aviso.setHeaderText("Lista sin elementos");
+				aviso.setContentText("No se encontraron datos para mostrar");
+				aviso.show();
+			} else {
+				reporte.generarReporte(listado);
+			}
+		} catch (JRException e) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Error");
+			alerta.setHeaderText("Error de Reporte");
+			alerta.setContentText("No se pudo generar el informe");
+			alerta.show();
+			e.printStackTrace();
+		}
 	}
 }

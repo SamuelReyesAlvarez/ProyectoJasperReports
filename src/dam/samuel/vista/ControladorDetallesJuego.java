@@ -93,7 +93,6 @@ public class ControladorDetallesJuego implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listaEstilos = FXCollections.observableArrayList();
-		listaEstilos.add("<sin definir>");
 		for (EstiloJuego estilo : EstiloJuego.values()) {
 			listaEstilos.add(estilo.toString().toUpperCase());
 		}
@@ -145,7 +144,7 @@ public class ControladorDetallesJuego implements Initializable {
 			Alert alerta = new Alert(AlertType.CONFIRMATION);
 			alerta.setTitle("Peticion");
 			alerta.setHeaderText("Se solicita confirmar la accion");
-			alerta.setContentText("ï¿½Esta seguro de eliminar el objeto seleccionado?");
+			alerta.setContentText("Esta seguro de eliminar el objeto seleccionado?");
 
 			Optional<ButtonType> result = alerta.showAndWait();
 
@@ -182,12 +181,8 @@ public class ControladorDetallesJuego implements Initializable {
 			// En primer lugar se recogen los nuevos datos establecidos por el Administrador
 			// Nombre del juego
 			juego.setNombre(textoNombre.getText());
-			// Estilo de juego (que puede ser nulo)
-			if (comboEstilo.getValue().contains("<")) {
-				juego.setEstilo(null);
-			} else {
-				juego.setEstilo(EstiloJuego.values()[(comboEstilo.getSelectionModel().getSelectedIndex() - 1)]);
-			}
+			// Estilo de juego
+			juego.setEstilo(EstiloJuego.values()[(comboEstilo.getSelectionModel().getSelectedIndex())]);
 			// Fecha de publicación
 			if (textoPublicacion.getValue() != null) {
 				juego.setPublicacion(textoPublicacion.getValue());
@@ -310,11 +305,7 @@ public class ControladorDetallesJuego implements Initializable {
 	 */
 	public void cargarDetallesJuego() {
 		textoNombre.setText(juego.getNombre());
-		if (juego.getEstilo() != null) {
-			comboEstilo.getSelectionModel().select(juego.getEstilo().ordinal() + 1);
-		} else {
-			comboEstilo.getSelectionModel().select(0);
-		}
+		comboEstilo.getSelectionModel().select(juego.getEstilo().ordinal());
 		textoPublicacion.setPromptText(new SimpleDateFormat(PATRON_FECHA).format(juego.getPublicacion()));
 		textoPrecio.setText(String.valueOf(juego.getPrecio()));
 
