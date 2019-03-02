@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * 
  * @author Samuel Reyes Alvarez
  * 
- * @version 1.2.0 (27/02/2019)
+ * @version 1.2.1 (27/02/2019)
  * 
  *          Esta aplicación pretende ofrecer al usuario un sistema de consulta
  *          de datos sobre videojuegos y empresas que los desarrollan así como

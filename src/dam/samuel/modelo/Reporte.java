@@ -10,9 +10,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.swing.JRViewer;
 
 /**
@@ -50,14 +47,6 @@ public class Reporte {
 
 		// Muestra el reporte en la ventana
 		JRViewer viewer = new JRViewer(jasper);
-
-		// Permite al usuario guardar el reporte como pdf
-		JRPdfExporter exporter = new JRPdfExporter();
-		exporter.setExporterInput(new SimpleExporterInput(jasper));
-		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("reporte_valorator.pdf"));
-
-		// Exporta el reporte
-		exporter.exportReport();
 
 		// Carga la ventana que contiene el reporte y la muestra
 		ventana = new JFrame();
